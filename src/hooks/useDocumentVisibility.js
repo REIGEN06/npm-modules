@@ -1,20 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useDocumentVisibility = (initialValue = 0) => {
-  let [count, setCount] = useState(initialValue);
-  let [visible, setVisible] = useState(true);
+  const [count, setCount] = useState(initialValue);
+  const [visible, setVisible] = useState(true);
+  const [callbacks, setCallbacks] = useState([]);
 
   const increment = () => setCount((currentCount) => currentCount + 1);
 
-  //Можно работать через document.visibilityState, но тогда придется
-  // обрабатывать строковые значения. Сейчас все работает через boolean
-  const onVisibilityChange = () => {
-    setVisible(!document.hidden); //потому что не существует метода document.visible
-    console.log("isVisible:", !visible);
-    if (!visible) {
+  const onVisibilityChange = (callback) => {
+    setCallbacks((callbacks) => [...callbacks, callback]);
+  };
+
+  const Handle = () => {
+    setVisible(document.visibilityState === "visible");
+    if (document.hidden) {
       increment();
     }
+    callbacks.forEach((callback) => {
+      callback(document.visibilityState === "visible");
+    });
   };
+
+  useEffect(() => {
+    document.addEventListener("visibilitychange", Handle);
+    return () => {
+      document.removeEventListener("visibilitychange", Handle);
+    };
+  }, [callbacks]);
+  console.log(callbacks);
 
   return { count, visible, onVisibilityChange };
 };

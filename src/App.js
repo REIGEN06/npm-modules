@@ -5,11 +5,16 @@ function App() {
   const { count, visible, onVisibilityChange } = useDocumentVisibility(0);
 
   useEffect(() => {
-    window.addEventListener("visibilitychange", onVisibilityChange);
-    return () => {
-      window.removeEventListener("visibilitychange", onVisibilityChange);
-    };
-  }, [visible]);
+    onVisibilityChange((isVisible) => {
+      console.log("first handler", isVisible);
+    });
+
+    const unsubscribeSecondHandler = onVisibilityChange((isVisible) => {
+      console.log("second handler", isVisible);
+    });
+
+    setTimeout(() => unsubscribeSecondHandler, 5000); // отписываемся от 'second handler' через 5 секунд
+  }, []);
 
   return (
     <div>
