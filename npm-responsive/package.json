@@ -1,0 +1,13 @@
+{
+  "name": "@reigen06/react-responsive",
+  "version": "0.0.1",
+  "description": "homework",
+  "main": "ReactResponsive.js",
+  "repository":"https://github.com/REIGEN06/npm-modules/tree/0e5c18222585fe532aefa49ecf142f435f6117d4",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["MediaQueryList", "API"],
+  "author": "REIGEN06",
+  "license": "ISC"
+}
