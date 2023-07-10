@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import { ReactNode } from "react";
 import { useEffect, useState } from "react";
@@ -24,7 +25,7 @@ export const useMediaQuery = (query: UseQueryTypes): boolean => {
   }, [query]);
   return state;
 };
-//////////////////////////////Начинается компонент
+
 interface QueryTypes {
   orientation?: "portrait" | "landscape";
   minResolution?: number | `${number}dppx`;
@@ -40,50 +41,40 @@ declare type RequireAtLeastOne<T> = {
     Partial<Pick<T, Exclude<keyof T, K>>>;
 }[keyof T];
 
-declare type MediaQueryProps = RequireAtLeastOne<QueryTypes> & {
+export declare type MediaQueryProps = RequireAtLeastOne<QueryTypes> & {
   children: ReactNode | ((matches: boolean) => ReactNode);
 };
 
-function parseToLowerCase(string: string) {
-  return string.replace(/(?<=[a-z])(?=[A-Z])/g, "-").toLowerCase();
+function makeMediaQuery(props: { [key: string]: string | number }): string {
+  function parseToLowerCase(string: string) {
+    return string.replace(/(?<=[a-z])(?=[A-Z])/g, "-").toLowerCase();
+  }
+
+  return Object.entries(props)
+    .map(([key, value], index) => {
+      switch (key) {
+        case "orientation":
+          return `(${key}:${value})`;
+        case "minResolution":
+        case "maxResolution":
+          return typeof value === "number"
+            ? `(${parseToLowerCase(key)}: ${value}dppx)`
+            : `(${parseToLowerCase(key)}: ${value})`;
+        default:
+          return typeof value === "number"
+            ? `(${parseToLowerCase(key)}: ${value}px)`
+            : `(${parseToLowerCase(key)}: ${value})`;
+      }
+    })
+    .join("");
 }
 
-function getUnit(
-  key: string,
-  value: ReactNode | ((matches: boolean) => ReactNode)
-) {
-  if (/resolution/i.test(key)) {
-    if (typeof value === "number") {
-      return `${value}dppx`;
-    } else {
-      return value;
-    }
-  }
-  if (/width/i.test(key) || /height/i.test(key)) {
-    return `${value}px`;
-  }
-  return value;
-}
+export const MediaQuery = ({ children, ...props }: MediaQueryProps) => {
+  const newQuery = useMediaQuery({ query: makeMediaQuery(props) });
 
-export function MediaQuery(props: MediaQueryProps) {
-  const generatorMediaQuery = (): string => {
-    const entries = Object.entries(props);
-    return entries
-      .map(([key, value], index) => {
-        if (key !== "children") {
-          return `(${parseToLowerCase(key)}: ${getUnit(key, value)})`;
-        } else {
-          return "";
-        }
-      })
-      .join("");
-  };
-
-  const makeHook = useMediaQuery({ query: generatorMediaQuery() });
-
-  return typeof props.children === "function" ? (
-    <>{props.children(makeHook)}</>
-  ) : makeHook ? (
-    <>{props.children}</>
+  return typeof children === "function" ? (
+    <>{children(newQuery)}</>
+  ) : newQuery ? (
+    <>{children}</>
   ) : null;
-}
+};
