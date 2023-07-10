@@ -42,7 +42,7 @@ declare type MediaQueryProps = RequireAtLeastOne<QueryTypes> & {
   children: ReactNode | ((matches: boolean) => ReactNode);
 };
 
-function parsePropsKey(string: string) {
+function parseToLowerCase(string: string) {
   return string.replace(/(?<=[a-z])(?=[A-Z])/g, "-").toLowerCase();
 }
 
@@ -66,7 +66,7 @@ export function MediaQuery(props: MediaQueryProps) {
     return entries
       .map(([key, value], index) => {
         if (key !== "children") {
-          return `(${parsePropsKey(key)}: ${getUnit(key, value)})`;
+          return `(${parseToLowerCase(key)}: ${getUnit(key, value)})`;
         } else {
           return "";
         }
