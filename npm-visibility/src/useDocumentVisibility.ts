@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 
 type Callback = (isVisible: boolean) => void;
@@ -7,10 +8,10 @@ interface HookTypes {
   onVisibilityChange: (callback: Callback) => void;
 }
 
-export const useDocumentVisibility = (): HookTypes => {
+export const DocumentVisibility = (): HookTypes => {
   const [count, setCount] = useState(0);
   const [visible, setVisible] = useState(true);
-  const [callbacks, setCallbacks] = useState<any[]>([]);
+  const [callbacks, setCallbacks] = useState<Callback[]>([]);
 
   const increment = () => setCount((currentCount) => currentCount + 1);
 

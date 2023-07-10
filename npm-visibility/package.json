@@ -1,12 +1,45 @@
 {
   "name": "@reigen06/react-document-visibility",
-  "version": "1.0.0",
-  "description": "",
-  "main": "useDocumentVisibility.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "1.0.1",
+  "description": "homework",
+  "source": "src/useDocumentVisibility.ts",
+  "main": "dist/useDocumentVisibility.cjs",
+  "module": "dist/useDocumentVisibility.module.js",
+  "unpkg": "dist/useDocumentVisibility.umd.js",
+  "types": "dist/useDocumentVisibility.d.ts",
+  "repository": "https://github.com/REIGEN06/npm-modules/tree/feature/npm-modules/npm-visibility",
+  "dependencies": {
+    "react": "^18.2.0",
+    "typescript": "^4.0.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "microbundle"
+  },
+  "keywords": [
+    "API",
+    "hook",
+    "react",
+    "document",
+    "visibility"
+  ],
+  "author": "REIGEN06",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^18.2.14",
+    "microbundle": "^0.15.1",
+    "prettier": "3.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
