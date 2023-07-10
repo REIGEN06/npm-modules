@@ -13,11 +13,11 @@ export const useMediaQuery = (query: UseQueryTypes): boolean => {
     setState(() => window.matchMedia(query.query).matches);
   };
   useEffect(() => {
-    const mql = window.matchMedia(query.query);
+    const mediaQueryList = window.matchMedia(query.query);
 
-    mql.addEventListener("change", Handle);
+    mediaQueryList.addEventListener("change", Handle);
     return () => {
-      mql.removeEventListener("change", Handle);
+      mediaQueryList.removeEventListener("change", Handle);
     };
   }, [query]);
   return state;
