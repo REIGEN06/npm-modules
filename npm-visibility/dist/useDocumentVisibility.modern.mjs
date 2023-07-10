@@ -1,0 +1,2 @@
+import{useState as i,useRef as e,useEffect as t}from"react";const n=()=>{const[n,o]=i(0),[c,r]=i(!0),s=e([]),l=i=>{s.current.push(i)},u=()=>{r("visible"===document.visibilityState),document.hidden&&o(i=>i+1),s.current.forEach(i=>i("visible"===document.visibilityState))};return console.log(l),t(()=>(document.addEventListener("visibilitychange",u),()=>{document.removeEventListener("visibilitychange",u)}),[]),{count:n,visible:c,onVisibilityChange:l}};export{n as useDocumentVisibility};
+//# sourceMappingURL=useDocumentVisibility.modern.mjs.map
