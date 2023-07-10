@@ -1,28 +1,8 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { ReactNode } from "react";
-import { useEffect, useState } from "react";
+import React from "react";
+import { useMediaQuery } from "./useMediaQuery";
 type UseQueryTypes = {
   query: string;
-};
-
-export const useMediaQuery = (query: UseQueryTypes): boolean => {
-  const [state, setState] = useState(
-    () => window.matchMedia(query.query).matches
-  );
-
-  useEffect(() => {
-    const MediaQueryHandle = () => {
-      setState(() => window.matchMedia(query.query).matches);
-    };
-
-    const mediaQueryList = window.matchMedia(query.query);
-
-    mediaQueryList.addEventListener("change", MediaQueryHandle);
-    return () => {
-      mediaQueryList.removeEventListener("change", MediaQueryHandle);
-    };
-  }, [query]);
-  return state;
 };
 
 interface QueryTypes {
@@ -40,7 +20,7 @@ declare type RequireAtLeastOne<T> = {
     Partial<Pick<T, Exclude<keyof T, K>>>;
 }[keyof T];
 
-export declare type MediaQueryProps = RequireAtLeastOne<QueryTypes> & {
+type MediaQueryProps = RequireAtLeastOne<QueryTypes> & {
   children: ReactNode | ((matches: boolean) => ReactNode);
 };
 

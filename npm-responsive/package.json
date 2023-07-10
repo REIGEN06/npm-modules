@@ -1,8 +1,8 @@
 {
   "name": "@reigen06/react-responsive",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "homework",
-  "source": "src/ReactResponsive.tsx",
+  "source": "src/index.js",
   "main": "dist/ReactResponsive.cjs",
   "module": "dist/ReactResponsive.module.js",
   "unpkg": "dist/ReactResponsive.umd.js",
