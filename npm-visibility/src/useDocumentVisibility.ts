@@ -28,7 +28,6 @@ export const useDocumentVisibility = (): HookTypes => {
       callback(document.visibilityState === "visible")
     );
   };
-  console.log(onVisibilityChange);
 
   useEffect(() => {
     document.addEventListener("visibilitychange", DocumentVisibilityHandle);
