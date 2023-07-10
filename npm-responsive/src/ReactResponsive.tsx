@@ -9,15 +9,17 @@ export const useMediaQuery = (query: UseQueryTypes): boolean => {
   const [state, setState] = useState(
     () => window.matchMedia(query.query).matches
   );
-  const Handle = () => {
-    setState(() => window.matchMedia(query.query).matches);
-  };
+
   useEffect(() => {
+    const MediaQueryHandle = () => {
+      setState(() => window.matchMedia(query.query).matches);
+    };
+
     const mediaQueryList = window.matchMedia(query.query);
 
-    mediaQueryList.addEventListener("change", Handle);
+    mediaQueryList.addEventListener("change", MediaQueryHandle);
     return () => {
-      mediaQueryList.removeEventListener("change", Handle);
+      mediaQueryList.removeEventListener("change", MediaQueryHandle);
     };
   }, [query]);
   return state;
@@ -46,7 +48,10 @@ function parseToLowerCase(string: string) {
   return string.replace(/(?<=[a-z])(?=[A-Z])/g, "-").toLowerCase();
 }
 
-function getUnit(key: string, value: any) {
+function getUnit(
+  key: string,
+  value: ReactNode | ((matches: boolean) => ReactNode)
+) {
   if (/resolution/i.test(key)) {
     if (typeof value === "number") {
       return `${value}dppx`;
