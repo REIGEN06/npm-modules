@@ -1,6 +1,6 @@
 {
   "name": "@reigen06/react-document-visibility",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "homework",
   "source": "src/useDocumentVisibility.ts",
   "main": "dist/useDocumentVisibility.cjs",
