@@ -9,7 +9,7 @@ interface HookTypes {
   onVisibilityChange: (callback: Callback) => void;
 }
 
-export const UseDocumentVisibility = (): HookTypes => {
+export const useDocumentVisibility = (): HookTypes => {
   const [count, setCount] = useState(0);
   const [visible, setVisible] = useState(true);
   const onVisibilityCallback = useRef<Callback[]>([]);
