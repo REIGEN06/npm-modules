@@ -1,3 +1,4 @@
+import React from 'react'
 import { ReactNode } from "react";
 import { useEffect, useState } from "react";
 type UseQueryTypes={
@@ -59,10 +60,7 @@ function getUnit(key: string, value: any) {
 export function MediaQuery(props: MediaQueryProps) {
     const generatorMediaQuery = (): string => {
         const entries = Object.entries(props);
-        return entries
-            .map(([key, value], index) => {
-                if (key !== "children") {
-                    return `(${parsePropsKey(key)}: ${getUnit(
+        return entries.map(([key, value], index) => {if (key !== "children") {return `(${parsePropsKey(key)}: ${getUnit(
                         key,
                         value
                     )})`;
@@ -75,15 +73,5 @@ export function MediaQuery(props: MediaQueryProps) {
 
     const makeHook = useMediaQuery({ query: generatorMediaQuery() });
 
-    if (typeof props.children === "function"){
-        return (
-            <>{props.children(makeHook)}</>
-        )
-    } else if (makeHook){
-        return (
-        <>{props.children}</>
-        )
-    } else {
-        return null;
-    }
+    return (typeof props.children === "function")?<>{props.children(makeHook)}</>:(makeHook)?<>{props.children}</>:null
 }
