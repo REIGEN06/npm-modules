@@ -13,23 +13,22 @@ export const useDocumentVisibility = (): HookTypes => {
   const [visible, setVisible] = useState(true);
   const onVisibilityCallback = useRef<Callback[]>([]);
 
-  const increment = () => setCount((currentCount) => currentCount + 1);
-
   const onVisibilityChange = (callback: Callback) => {
     onVisibilityCallback.current.push(callback);
   };
 
-  const DocumentVisibilityHandle = (): void => {
-    setVisible(document.visibilityState === "visible");
-    if (document.hidden) {
-      increment();
-    }
-    onVisibilityCallback.current.forEach((callback) =>
-      callback(document.visibilityState === "visible")
-    );
-  };
-
   useEffect(() => {
+    const increment = () => setCount((currentCount) => currentCount + 1);
+    const DocumentVisibilityHandle = (): void => {
+      setVisible(document.visibilityState === "visible");
+      if (document.hidden) {
+        increment();
+      }
+      onVisibilityCallback.current.forEach((callback) =>
+        callback(document.visibilityState === "visible")
+      );
+    };
+
     document.addEventListener("visibilitychange", DocumentVisibilityHandle);
     return () => {
       document.removeEventListener(
