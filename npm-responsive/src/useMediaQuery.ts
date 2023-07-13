@@ -3,9 +3,11 @@ type UseQueryTypes = {
   query: string;
 };
 
-export const useMediaQuery = (query: UseQueryTypes): boolean => {
-  const [state, setState] = useState(
-    () => window.matchMedia(query.query).matches
+export const useMediaQuery = (query: UseQueryTypes, defaultValue = false): boolean => {
+  const [state, setState] = useState<boolean>(
+    typeof window !== "undefined"
+    ? () => window.matchMedia(query.query).matches
+    : defaultValue
   );
 
   useEffect(() => {
