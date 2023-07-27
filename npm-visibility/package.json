@@ -10,7 +10,7 @@
 	"repository": "https://github.com/REIGEN06/npm-modules/tree/feature/npm-modules/npm-visibility",
 	"dependencies": {},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": ">=16.8.0"
 	},
 	"scripts": {
 		"build": "microbundle"
