@@ -13,12 +13,14 @@ export const useDocumentVisibility = (): HookTypes => {
 	const [visible, setVisible] = useState(true);
 	const onVisibilityCallback = useRef<Callback[]>([]);
 
+	//коллбэк, что вернуть родителю состояние (свернута страница или нет)
 	const onVisibilityChange = (callback: Callback) => {
 		onVisibilityCallback.current.push(callback);
 	};
 
 	useEffect(() => {
 		const increment = () => setCount((currentCount) => currentCount + 1);
+		//Если страницу свернули\развернули, то инкрементируем + обновляем стейт + коллбэк обновляем
 		const DocumentVisibilityHandle = (): void => {
 			setVisible(document.visibilityState === 'visible');
 			if (document.hidden) {

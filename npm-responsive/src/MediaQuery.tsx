@@ -21,11 +21,14 @@ type MediaQueryProps = RequireAtLeastOne<QueryTypes> & {
 	children: ReactNode | ((matches: boolean) => ReactNode);
 };
 
-function makeMediaQuery(props: { [key: string]: string | number }): string {
-	function parseToLowerCase(string: string) {
-		return string.replace(/(?<=[a-z])(?=[A-Z])/g, '-').toLowerCase();
-	}
+//приводит строку minWidth к min-width
+function parseToLowerCase(string: string) {
+	return string.replace(/(?<=[a-z])(?=[A-Z])/g, '-').toLowerCase();
+}
 
+//преобразует minWidth, 624 к (min-width: 624px)
+//если параметров несколько, то ставит между ними and, чтобы @media схавал
+function makeMediaQuery(props: { [key: string]: string | number }): string {
 	return Object.entries(props)
 		.map(([key, value], index) => {
 			switch (key) {
@@ -45,9 +48,10 @@ function makeMediaQuery(props: { [key: string]: string | number }): string {
 		.join(' and ');
 }
 
+//отдаем готовенькие пропсы на съедение нашему хуку
 export const MediaQuery = ({ children, ...props }: MediaQueryProps) => {
 	const newQuery = useMediaQuery({ query: makeMediaQuery(props) });
-
+	//проверка на то, что внутри может быть еще один компонент MediaQuery
 	return typeof children === 'function' ? (
 		<>{children(newQuery)}</>
 	) : newQuery ? (
