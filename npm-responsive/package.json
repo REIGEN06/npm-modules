@@ -1,0 +1,32 @@
+{
+	"name": "@reigen06/react-responsive",
+	"version": "0.0.3",
+	"description": "homework",
+	"source": "src/index.js",
+	"main": "dist/ReactResponsive.cjs",
+	"module": "dist/ReactResponsive.module.js",
+	"unpkg": "dist/ReactResponsive.umd.js",
+	"types": "dist/ReactResponsive.d.ts",
+	"repository": "https://github.com/REIGEN06/npm-modules/tree/feature/npm-modules/npm-responsive",
+	"dependencies": {},
+	"peerDependencies": {
+		"react": ">=16.8.0"
+	},
+	"scripts": {
+		"build": "microbundle"
+	},
+	"keywords": [
+		"MediaQueryList",
+		"API",
+		"responsive",
+		"react",
+		"hook"
+	],
+	"author": "REIGEN06",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/react": "^18.2.14",
+		"microbundle": "^0.15.1",
+		"typescript": "^4.0.0"
+	}
+}
