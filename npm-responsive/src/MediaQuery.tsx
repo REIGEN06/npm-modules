@@ -42,7 +42,7 @@ function makeMediaQuery(props: { [key: string]: string | number }): string {
 						: `(${parseToLowerCase(key)}: ${value})`;
 			}
 		})
-		.join('');
+		.join(' and ');
 }
 
 export const MediaQuery = ({ children, ...props }: MediaQueryProps) => {
